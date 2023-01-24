@@ -13,7 +13,7 @@ int NowNum = 0;
 while(running){
 
 emit sendInt(NowNum++);
-QThread::sleep(1);
+QThread::sleep(2);
 }
 }
 
