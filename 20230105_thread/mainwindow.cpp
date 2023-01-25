@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent) :
     th1 = new ThTest;
     connect(th1,SIGNAL(sendInt(int)),this,SLOT(getInt(int)));
     connect(this,&MainWindow::ToThread,th1,&ThTest::Func);
+    ui->lineEdit_x->setValidator(new QRegExpValidator(QRegExp("[0-9]+$")));   //只能输入数字
+    ui->lineEdit_y->setValidator(new QRegExpValidator(QRegExp("[0-9]+$")));   //只能输入数字
 }
 
 MainWindow::~MainWindow()
@@ -44,10 +46,12 @@ void MainWindow::getInt(int num){
 
 void MainWindow::on_intSum_clicked()
 {
-    QString x,y,sum;
-    x = ui->lineEdit_x->text();
-    y = ui->lineEdit_y->text();
-    sum = x+y;
-    ui->lineEdit_sum->setText(sum);
-
+    QString qx,qy,qsum;
+    qx = ui->lineEdit_x->text();
+    int x = qx.toInt();// int转QString
+    qy = ui->lineEdit_y->text();
+    int y = qy.toInt();
+    int sum = x + y;
+    qsum = QString::number(sum);//QString转int
+    ui->lineEdit_sum->setText(qsum);
 }
